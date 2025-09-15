@@ -1,0 +1,18 @@
+<div class="card shadow-sm product-card">
+  <img [src]="image" class="card-img-top" alt="{{name}}" />
+
+  <div class="card-body text-center">
+    <h5 class="card-title">{{ name }}</h5>
+    <p class="card-text fw-bold">{{ price }}</p>
+
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-primary btn-sm" (click)="onAddToCart()">
+        🛒 Ajouter au panier
+      </button>
+
+      <button class="btn btn-outline-danger btn-sm" (click)="onAddToFavorites()">
+        ❤️ Favoris
+      </button>
+    </div>
+  </div>
+</div>
