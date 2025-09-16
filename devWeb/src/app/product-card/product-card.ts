@@ -1,5 +1,6 @@
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Product } from '../models/product.model';
 
 @Component({
   selector: 'app-product-card',
@@ -9,19 +10,19 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 
 export class ProductCard {
-  @Input() name!: string;
-  @Input() price!: number;
-  // @Input() currency!: string; 
-  @Input() image!: string;// image principale
+  @Input() product!: Product;
   
-  @Output() addToCart = new EventEmitter<void>();
-  @Output() addToFavorites = new EventEmitter<void>();
+  
+  @Output() addToCart = new EventEmitter<Product>();
+  @Output() addToFavorites = new EventEmitter<Product>();
 
   onAddToCart() {
-    this.addToCart.emit();
+    this.addToCart.emit(this.product);
   }
 
   onAddToFavorites() {
-    this.addToFavorites.emit();
+    this.addToFavorites.emit(this.product);
   }
 }
+
+

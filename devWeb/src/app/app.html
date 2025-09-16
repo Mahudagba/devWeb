@@ -1,13 +1,12 @@
 <app-header></app-header>
 <router-outlet>
 <app-product-card
-  [name]="'Chaussures Nike'"
-  [price]="89.99"
-  [image]="'assets/nike.jpg'"
+  [product]="product"
   (addToCart)="onAddToCart()"
   (addToFavorites)="onAddToFavorites()"
 ></app-product-card>
 
+<!-- <app-product-grid [products]="products"></app-product-grid> -->
 
 </router-outlet>
 <app-footer></app-footer>
