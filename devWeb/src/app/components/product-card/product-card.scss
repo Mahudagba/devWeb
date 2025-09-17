@@ -1,0 +1,31 @@
+.product-card {
+  border-radius: 14px;
+  
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  margin:10px;
+}
+
+.ratio-4x3 {
+  aspect-ratio: 4 / 3;
+  background: #f8f9fa;
+}
+
+.category {
+  letter-spacing: .06em;
+}
+
+.price {
+  color: #000; /* prix en noir */
+}
