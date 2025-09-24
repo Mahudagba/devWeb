@@ -1,0 +1,70 @@
+<div class="register-container">
+  <!-- Logo visible uniquement sur mobile -->
+  <div class="register-logo mobile-only">
+    <h1>My<span>Shop</span></h1>
+  </div>
+
+  <!-- Colonne gauche : formulaire -->
+  <div class="register-form">
+    <div class="form-wrapper">
+      <h2 class="mb-4">Inscription</h2>
+      <form>
+        <div class="mb-3">
+          <label for="name" class="form-label">Nom complet</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            placeholder="Entrez votre nom complet"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            placeholder="Entrez votre email"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder="Créez un mot de passe"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirmez le mot de passe</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            class="form-control"
+            placeholder="Retapez votre mot de passe"
+            required
+          />
+        </div>
+
+        <button type="button" class="btn btn-dark w-100" routerLink="/">
+          S’inscrire
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Barre de séparation -->
+  <div class="separator desktop-only"></div>
+
+  <!-- Logo visible uniquement sur desktop -->
+  <div class="register-logo desktop-only">
+    <h1>My<span>Shop</span></h1>
+  </div>
+</div>

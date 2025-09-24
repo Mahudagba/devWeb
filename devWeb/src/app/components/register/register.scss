@@ -1,10 +1,10 @@
-.login-container {
+.register-container {
   display: flex;
   height: 100vh;
 }
 
 /* Formulaire */
-.login-form {
+.register-form {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -13,28 +13,28 @@
 
 .form-wrapper {
   width: 100%;
-  max-width: 400px;   /* limite la largeur */
-  padding: 2rem;      /* ajoute du padding autour */
-  background: #fff;   /* optionnel, fond blanc */
-  border-radius: 8px; /* coins arrondis */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* petite ombre */
+  max-width: 420px;   /* légèrement plus large que login */
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* Logo */
-.login-logo {
+.register-logo {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login-logo h1 {
+.register-logo h1 {
   font-size: 4rem;
   font-weight: bold;
 }
 
-.login-logo span {
-  color: #000; /* MyShop → Shop en noir */
+.register-logo span {
+  color: #000;
 }
 
 /* Séparateur */
@@ -59,11 +59,4 @@
     align-items: center;
     margin-bottom: 2rem;
   }
-}
-
-.error {
-  color: red;
-  text-align: center;
-  // font-weight: bold;
-  padding: bottom 10px;
 }

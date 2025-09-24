@@ -1,11 +1,57 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { AuthService } from '../../services/auth-service';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
 export class Login {
+  loginForm: FormGroup;
+  errorMesage = signal('')
+  private router:Router = inject(Router)
 
+
+  constructor(
+    private authService:AuthService,
+    
+  ){
+  this.loginForm = new FormGroup({
+      username: new FormControl('david_r', [Validators.required, Validators.minLength(3)]),
+      password: new FormControl('3478*#54', [Validators.required, Validators.minLength(8)]),
+ });
+}
+
+
+
+
+login(){
+  if(!this.loginForm.valid){
+    this.errorMesage.set('username ou mot de passe incorrecte') ;
+    return;
+  }
+    this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe({
+      next:( auth:any) =>{
+        // if(!auth?.token){
+        //   return;
+        // }
+        console.log('Auth: ',auth);
+        this.errorMesage.set('') ; 
+        this.authService.saveToken(auth.token);
+        console.log('after saving token')
+        this.router.navigate(['/']);
+        
+      },
+      error:(error) =>{
+        console.error('Erreur lors de la connexion');
+        this.errorMesage.set('username ou mot de passe incorrecte') ; 
+      }
+    })
+  }
 }

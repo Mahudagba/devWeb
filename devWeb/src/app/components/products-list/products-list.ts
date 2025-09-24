@@ -3,6 +3,7 @@ import { ProductCard } from '../product-card/product-card';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-products-list',
@@ -12,10 +13,15 @@ import { ProductService } from '../../services/product-service';
   styleUrl: './products-list.scss'
 })
 export class ProductsList {
-  constructor(private productService:ProductService){
+  constructor(
+    private productService:ProductService,
+    private authService: AuthService
+
+  ){
 
   }
  products: Product[] = [];
+
 
   onAddToCart(product: Product) {
     console.log(`Produit ajouté au panier: ${product.title}`);
@@ -26,6 +32,8 @@ export class ProductsList {
   }
 
   ngOnInit(){
+    console.log('User token is ',this.authService.getToken())
+
     this.productService.getProducts().subscribe({
       next:( products) =>{
         console.log('Produit recupérer: ', products);
