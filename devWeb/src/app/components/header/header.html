@@ -3,41 +3,37 @@
     <div class="container">
       <a class="navbar-brand fw-bold" [routerLink]="['/']">MyShop</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      @if(!userIsConnected){
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Si l'utilisateur n'est pas connecté -->
+      <div class="collapse navbar-collapse" id="navbarNav" *ngIf="!userIsConnected">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/register']">Register</a>
           </li>
           <li class="nav-item">
-
             <a class="nav-link cursor-pointer" [routerLink]="['/login']">Login</a>
           </li>
-          <!-- <li class="nav-item"> -->
-          <!-- <a class="nav-link" routerLink="/panier">Panier</a> -->
-          <!-- </li> -->
-          <!-- <li class="nav-item"> -->
-          <!-- <a class="nav-link" routerLink="/contact">Contact</a> -->
-          <!-- </li> -->
         </ul>
       </div>
-      }
 
-      @else{
-    <div class="collapse navbar-collapse" id="navbarNav"></div>
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link cursor-pointer" [routerLink]="['/login']">Logout</a>
-        </li>
+      <app-cart>  </app-cart>
 
-      </ul>
-    </div>
-    }
-
+      <!-- Si l'utilisateur est connecté -->
+      <div class="collapse navbar-collapse" id="navbarNav" *ngIf="userIsConnected">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link cursor-pointer" (click)="logout()">Logout</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 </header>

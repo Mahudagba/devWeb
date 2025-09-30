@@ -8,26 +8,26 @@
   <div class="register-form">
     <div class="form-wrapper">
       <h2 class="mb-4">Inscription</h2>
-      <form>
+      <form [formGroup] = "signupForm" (ngSubmit) ="register()">
         <div class="mb-3">
           <label for="name" class="form-label">Nom complet</label>
           <input
-            type="text"
-            id="name"
+            
             class="form-control"
+            formControlName="username"
             placeholder="Entrez votre nom complet"
-            required
+            
           />
         </div>
 
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input
-            type="email"
-            id="email"
+            
             class="form-control"
+            formControlName="email"
             placeholder="Entrez votre email"
-            required
+            
           />
         </div>
 
@@ -35,10 +35,10 @@
           <label for="password" class="form-label">Mot de passe</label>
           <input
             type="password"
-            id="password"
             class="form-control"
+            formControlName="password"
             placeholder="Créez un mot de passe"
-            required
+            
           />
         </div>
 
@@ -46,14 +46,14 @@
           <label for="confirmPassword" class="form-label">Confirmez le mot de passe</label>
           <input
             type="password"
-            id="confirmPassword"
+             formControlName="confirmPassword"
             class="form-control"
             placeholder="Retapez votre mot de passe"
-            required
+            
           />
         </div>
 
-        <button type="button" class="btn btn-dark w-100" routerLink="/">
+        <button type="submit" class="btn btn-dark w-100" [disabled]="signupForm.invalid">
           S’inscrire
         </button>
       </form>

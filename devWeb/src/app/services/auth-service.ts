@@ -1,40 +1,79 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://fakestoreapi.com/auth/login';
+  private apiUrl = 'https://fakestoreapi.com/';
 
-  constructor(){}
+  currentUserSubject = new BehaviorSubject<{} | null>(null);
 
-  login(username:string,password:string){
-    return this.http.post(this.apiUrl,{
-      username:username,
-      password:password
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    // ⚡ au démarrage → recharger si un token existe déjà
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.saveToken(token);
+      }
+    }
+
+  }
+
+  /** Observable public de l’état utilisateur */
+  get currentUser$(): Observable<{} | null> {
+    return this.currentUserSubject.asObservable();
+  }
+
+  register(data: {}) {
+    return this.http.post(this.apiUrl+'users', data);
+  }
+
+  login(username: string, password: string) {
+    return this.http.post(this.apiUrl +'auth/login', {
+      username: username,
+      password: password,
     });
   }
 
   saveToken(token: string) {
     // const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
     // document.cookie = `auth_token=${token}; path=/; expires=${expires}; SameSite=Strict`;
-     localStorage.setItem('token', JSON.stringify(token));
-  
-   
+    if (isPlatformBrowser(this.platformId)) {
+      if (!localStorage) return;
+
+      localStorage.setItem('token', JSON.stringify(token));
+      this.currentUserSubject.next(this.decodeJwt(token));
+    }
   }
 
   getToken() {
-    return JSON.parse(<string>localStorage.getItem('token'));
+    if (isPlatformBrowser(this.platformId)) {
+      if (!localStorage) return null;
+      return JSON.parse(<string>localStorage.getItem('token'));
+    }
     // return document.cookie
     //   .split('; ')
     //   .find(cookie => cookie.startsWith('auth_token='))
     //   ?.split('=')[1] ?? null;
   }
 
-  getUserIdFromToken(token: string) {
-    return this.decodeJwt(token).sub;
+  /** Déconnexion */
+  logout(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      console.log("execution de la gogic log out");
+      localStorage.removeItem('token');
+      this.currentUserSubject.next(null);
+    }
+    console.log("user is now connceted?", this.isUserConnected());
+  }
+
+  /** Vérifie si l’utilisateur est connecté */
+  isUserConnected(): boolean {
+    return this.currentUserSubject.value !== null;
   }
 
   decodeJwt(token: string): { sub: number, iat: number, user: string } {
@@ -47,18 +86,4 @@ export class AuthService {
     return JSON.parse(jsonPayload);
   }
 
-  getUserIsConnected(){
-    const decoded = this.decodeJwt(this.getToken()??'');
-
-      if (!decoded?.iat) return false; // pas d'iat → considéré invalide
-
-      const issuedAt = decoded.iat * 1000; // conversion en ms
-      const oneWeek = 7 * 24 * 60 * 60 * 1000; // 7 jours en ms
-      const now = Date.now();
-
-      if(now - issuedAt > oneWeek){
-        return false;
-      }
-      return true;
-  }
 }
