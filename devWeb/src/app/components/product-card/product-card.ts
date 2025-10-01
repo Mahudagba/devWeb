@@ -2,6 +2,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart-service';
 
 @Component({
   selector: 'app-product-card',
@@ -26,14 +27,16 @@ export class ProductCard {
       : this.product.description;
   }
 
+  constructor(
+    private cartService:CartService){
+  }
+
 
   onAddToCart() {
-    this.addToCart.emit(this.product);
+    this.cartService.addToCart(this.product)
+    // this.addToCart.emit(this.product);
   }
 
-  onAddToFavorites() {
-    this.addToFavorites.emit(this.product);
-  }
 
   onImageError(event: Event) {
   const imgElement = event.target as HTMLImageElement;

@@ -17,7 +17,7 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('token');
       if (token) {
-        this.saveToken(token);
+       this.currentUserSubject.next(this.decodeJwt(token));
       }
     }
 

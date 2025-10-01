@@ -1,16 +1,20 @@
 <div class="container mt-4">
-  <div class="row g-3">
-    <div 
-      class="col-12 col-sm-6 col-md-4 "
-      *ngFor="let prod of products">
-      
-      <app-product-card
-        [product]="prod"
-        (addToCart)="onAddToCart(prod)"
-        (addToFavorites)="onAddToFavorites(prod)">
-      </app-product-card>
+  <div class="row">
+    <div class="col-12 col-md-9">
+    <div class="row g-3">
+      <div class="col-12 col-sm-6 col-md-4 " *ngFor="let prod of products">
+
+        <app-product-card [product]="prod" (addToCart)="onAddToCart(prod)" (addToFavorites)="onAddToFavorites(prod)">
+        </app-product-card>
+
+      </div>
+
 
     </div>
   </div>
-</div>
+    <div class="col-12 col-md-3">
+      <app-cart></app-cart>
+    </div>
+  </div>
 
+</div>

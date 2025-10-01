@@ -1,0 +1,34 @@
+// /* cart.component.css */
+// :host {
+//   position: fixed;
+//   top: 20px;
+//   right: 20px;
+//   width: 250px;   /* largeur fixe pour éviter les chevauchements */
+//   z-index: -1;  /* pour passer au-dessus du reste */
+// }
+
+
+/* cart.component.css ou styles.css */
+:host {
+  position: sticky;
+  top: 20px; /* distance par rapport au haut */
+//   display: block;
+
+}
+
+.line-clamp-1 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width:100px;
+}
+
+.product-title {
+  display: inline-block;
+  max-width: 150px; /* tu ajustes selon ta mise en page */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+

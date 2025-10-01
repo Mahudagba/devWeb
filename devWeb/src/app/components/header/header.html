@@ -1,4 +1,4 @@
-<header>
+<header class="z-3">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand fw-bold" [routerLink]="['/']">MyShop</a>
@@ -24,7 +24,6 @@
         </ul>
       </div>
 
-      <app-cart>  </app-cart>
 
       <!-- Si l'utilisateur est connecté -->
       <div class="collapse navbar-collapse" id="navbarNav" *ngIf="userIsConnected">
