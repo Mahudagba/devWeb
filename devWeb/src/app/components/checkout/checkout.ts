@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CartItem } from '../../models/cart.model';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart-service';
 
 @Component({
   selector: 'app-checkout',
@@ -9,7 +10,20 @@ import { CommonModule } from '@angular/common';
   styleUrl: './checkout.scss'
 })
 export class Checkout {
-@Input() cartItems: CartItem[] = [];
+ cartItems: CartItem[] = [];
+
+constructor(private cartService: CartService,){
+
+}
+
+ngOnInit(): void {
+    // On s’abonne aux changements du panier
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartItems = items;
+      
+    });
+  }
+
 
   get total(): number {
     return this.cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
