@@ -1,0 +1,29 @@
+.edit-profile-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f4f6f8;
+  padding: 2rem 1rem;
+}
+
+.edit-profile-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem 3rem;
+  width: 100%;
+  max-width: 500px;
+  transition: all 0.3s ease;
+}
+
+.edit-profile-card:hover {
+  transform: translateY(-3px);
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #007bff;
+}

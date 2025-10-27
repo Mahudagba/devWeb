@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class Register {
 
   signupForm!: FormGroup;
+  private router:Router = inject(Router);
 
   constructor(
     private authService: AuthService,
@@ -42,9 +44,10 @@ export class Register {
     if (!this.signupForm.valid) return;
     let data = {
 
-      username: this.signupForm.value.username,
+      name: this.signupForm.value.username,
       email: this.signupForm.value.email,
       password: this.signupForm.value.password,
+      password_confirmation: this.signupForm.value.confirmPassword,
     };
 
     console.log('data interface register',data);
@@ -55,9 +58,9 @@ export class Register {
         // }
         console.log('created_data: ',created_data);
    
-        // this.authService.saveToken(auth.token);
+        this.authService.saveUserInfo(created_data);
         console.log('after saving token')
-        // this.router.navigate(['/']);
+        this.router.navigate(['/']);
         
       },
       error:(error) =>{

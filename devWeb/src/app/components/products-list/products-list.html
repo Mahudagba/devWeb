@@ -1,14 +1,17 @@
+
+
 <div class="container mt-4">
+<app-product-search (searchChange)="onSearchChangeLocal($event)"></app-product-search>
+
   <div class="row">
     <div class="col-12 col-md-9">
     <div class="row g-3">
-      <div class="col-12 col-sm-6 col-md-4 " *ngFor="let prod of products">
+      <div class="col-12 col-sm-6 col-md-4 " *ngFor="let prod of filteredProducts">
 
         <app-product-card [product]="prod" (addToCart)="onAddToCart(prod)" (addToFavorites)="onAddToFavorites(prod)">
         </app-product-card>
 
       </div>
-
 
     </div>
   </div>

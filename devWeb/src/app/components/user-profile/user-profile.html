@@ -1,0 +1,43 @@
+<div class="profile-wrapper" *ngIf="user">
+  <div class="profile-card shadow-lg">
+    <div class="profile-header">
+      <img
+        [src]="user.avatarUrl || 'https://www.citypng.com/public/uploads/preview/profile-user-round-white-icon-symbol-png-701751695033499brrbuebohc.png'"
+        alt="Avatar utilisateur"
+        class="avatar"
+      />
+      <h2 class="username">{{ user.name }}</h2>
+      <p class="user-email">{{ user.email }}</p>
+    </div>
+
+    <div class="profile-info mt-4">
+      <div class="info-item">
+        <span class="label">Téléphone :</span>
+        <span class="value">{{ user.phone || 'Non renseigné' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Rôle :</span>
+        <span class="value">{{ user.role || 'Client' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Membre depuis :</span>
+        <span class="value">{{ user.created_at | date:'longDate' }}</span>
+      </div>
+    </div>
+
+    <div class="profile-actions mt-4">
+      <button (click)="goToEditProfile()" class="btn btn-outline-primary">
+        <i class="bi bi-pencil-square me-2"></i> Modifier
+      </button>
+      <button (click)="goToOrders()" class="btn btn-outline-secondary" *ngIf="shouldShowButton()">
+        <i class="bi bi-bag-check me-2"></i> Mes commandes
+      </button>
+      <button (click)="logout()" class="btn btn-danger">
+        <i class="bi bi-box-arrow-right me-2"></i> Déconnexion
+      </button>
+    </div>
+  </div>
+</div>
+<div *ngIf="!user" class="text-center mt-5">
+  <p>Chargement du profil utilisateur...</p>
+</div>

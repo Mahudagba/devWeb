@@ -1,7 +1,7 @@
 <header class="z-3">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand fw-bold" [routerLink]="['/']">MyShop</a>
+      <a class="navbar-brand fw-bold" (click)="navigateHome()">MyShop</a>
 
       <button
         class="navbar-toggler"
@@ -24,12 +24,28 @@
         </ul>
       </div>
 
-
       <!-- Si l'utilisateur est connecté -->
       <div class="collapse navbar-collapse" id="navbarNav" *ngIf="userIsConnected">
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto align-items-center">
+
+          <!-- Avatar utilisateur -->
+          <li class="nav-item me-3">
+            <a class="nav-link d-flex align-items-center" (click)="navigateToProfile()">
+              <img
+                [src]="userAvatarUrl || 'https://www.citypng.com/public/uploads/preview/profile-user-round-white-icon-symbol-png-701751695033499brrbuebohc.png'"
+                alt="User Avatar"
+                class="rounded-circle me-2"
+                width="36"
+                height="36"
+                style="object-fit: cover;"
+              />
+              <span class="text-white">{{ userName || 'Mon profil' }}</span>
+            </a>
+          </li>
+
+          <!-- Bouton Logout -->
           <li class="nav-item">
-            <a class="nav-link cursor-pointer" (click)="logout()">Logout</a>
+            <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
           </li>
         </ul>
       </div>

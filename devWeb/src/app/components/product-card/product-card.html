@@ -2,7 +2,7 @@
   <div class="ratio ratio-4x3 overflow-hidden">
     <img
       [src]="product.image"
-      [alt]="product.title"
+      [alt]="product.name"
       class="card-img-top object-cover"
       loading="lazy"
       (error)="onImageError($event)"
@@ -11,10 +11,10 @@
 
   <div class="card-body d-flex flex-column">
     <div class="mb-2">
-      <small class="text-muted text-uppercase category">{{ product.category }}</small>
+      <small class="text-muted text-uppercase category">{{ product.categories[0].name }}</small>
     </div>
 
-    <h5 class="card-title mb-2" title="{{ product.title }}">{{ product.title }}</h5>
+    <h5 class="card-title mb-2" title="{{ product.name }}">{{ product.name }}</h5>
 
     <p class="card-text text-muted mb-3">
       {{ shortDescription(100) }}

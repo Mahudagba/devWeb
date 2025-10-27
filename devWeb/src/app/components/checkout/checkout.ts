@@ -2,6 +2,10 @@ import { Component, Input } from '@angular/core';
 import { CartItem } from '../../models/cart.model';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart-service';
+import { AuthService } from '../../services/auth-service';
+import { error } from 'console';
+import e from 'express';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -12,7 +16,7 @@ import { CartService } from '../../services/cart-service';
 export class Checkout {
  cartItems: CartItem[] = [];
 
-constructor(private cartService: CartService,){
+constructor(private cartService: CartService,private authService: AuthService,private router: Router) {
 
 }
 
@@ -31,7 +35,18 @@ ngOnInit(): void {
 
   onPay() {
     // Ici tu mettras la logique pour intégrer un service de paiement (Stripe, PayPal, etc.)
-    alert('Paiement en cours...');
+    this.authService.saveCommande(this.cartItems).subscribe({
+      next: (response) => {
+        alert('Commande Enregistrée avec succès !');
+        // alert('Paiement en cours...');
+        this.cartService.clearCart();
+        this.router.navigate(['/orders']);
+      },
+    error: (error) => {
+        console.error('Erreur lors de la commande');
+        alert(`Erreur lors de la reservation de la commande. Veuillez réessayer. ${JSON.parse(error)}`, );
+      }
+    });
   }
 }
 

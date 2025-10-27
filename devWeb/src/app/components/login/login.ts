@@ -23,8 +23,8 @@ export class Login {
     
   ){
   this.loginForm = new FormGroup({
-      username: new FormControl('david_r', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('3478*#54', [Validators.required, Validators.minLength(8)]),
+      email: new FormControl('user@example.com', [Validators.required, Validators.minLength(3)]),
+      password: new FormControl('string', [Validators.required, Validators.minLength(4)]),
  });
 }
 
@@ -33,17 +33,17 @@ export class Login {
 
 login(){
   if(!this.loginForm.valid){
-    this.errorMesage.set('username ou mot de passe incorrecte') ;
+    this.errorMesage.set('email ou mot de passe incorrecte') ;
     return;
   }
-    this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe({
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
       next:( auth:any) =>{
         // if(!auth?.token){
         //   return;
         // }
         console.log('Auth: ',auth);
         this.errorMesage.set('') ; 
-        this.authService.saveToken(auth.token);
+        this.authService.saveUserInfo(auth);
         console.log('after saving token')
         this.router.navigate(['/']);
         

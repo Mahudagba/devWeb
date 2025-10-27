@@ -1,38 +1,48 @@
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 import { catchError, throwError } from 'rxjs';
 
-
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
-  let token = null;
   const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
 
+  let token: string | null = null;
 
-  try {
-    
-   token = localStorage.getItem('token');
-
-  } catch (error) {
-    
+  // Vérifie si on est bien dans le navigateur
+  if (isPlatformBrowser(platformId)) {
+    try {
+      token = sessionStorage.getItem('token');
+    } catch (error) {
+      console.log('JWT Interceptor - erreur d’accès au sessionStorage:', error);
+    }
+  } else {
+    console.log('JWT Interceptor - rendu serveur détecté, pas de sessionStorage');
   }
 
+  // Clone la requête avec le header Authorization si token dispo
   let authReq = req;
   if (token) {
     authReq = req.clone({
-      setHeaders: { Authorization: `Bearer ${token}` }
+      setHeaders: { Authorization: `Bearer ${JSON.parse(token)}` },
     });
   }
 
-  // return next(authReq).pipe(
-  //   catchError((error: HttpErrorResponse) => {
-  //     if (error.status === 401) {
-  //       localStorage.removeItem('token');
-  //       router.navigate(['/login']);
-  //     }
-  //     return throwError(() => error);
-  //   })
-  // );
+  console.log('JWT Interceptor - Request:', authReq);
 
- return next(authReq);
+  // Gestion d’erreurs (401 redirige vers /login)
+  return next(authReq).pipe(
+    catchError((error: HttpErrorResponse) => { 
+      console.error('Erreur HTTP détectée:', error);
+
+      if (error.status === 401 && isPlatformBrowser(platformId)) {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+        router.navigate(['/login']);
+      }
+
+      return throwError(() => error);
+    })
+  );
 };

@@ -1,0 +1,54 @@
+<div class="card p-3 mb-3 shadow-sm">
+    <h5 class="card-title mb-3">
+        {{ product.id ? 'Modifier le produit' : 'Ajouter un produit' }}
+    </h5>
+
+    <div class="mb-3">
+        <label class="form-label">Nom</label>
+        <input class="form-control" [(ngModel)]="product.name" required />
+    </div>
+
+
+    <div class="mb-3">
+        <label class="form-label">Prix</label>
+        <input type="number" class="form-control" [(ngModel)]="product.price" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Stock</label>
+        <input type="number" class="form-control" [(ngModel)]="product.stock" />
+    </div>
+
+    <!-- is active -->
+    <div class="form-group mb-3">
+        <label>Statut</label>
+        <select class="form-select" [(ngModel)]="product.is_active" value="{{product.is_active}}">
+            <option value="1">Actif</option>
+            <option value="0">Inactif</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Catégorie</label>
+        <select class="form-select" [(ngModel)]="product.categories" multiple [compareWith]="compareCategories">
+            <option *ngFor="let cat of categories" [value]="cat">
+                {{ cat.name }}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Image URL</label>
+        <input type="text" class="form-control" [(ngModel)]="product.image" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" [(ngModel)]="product.description" required></textarea>
+    </div>
+
+    <div class="text-end">
+        <button class="btn btn-secondary me-2" (click)="cancel.emit()">Annuler</button>
+        <button class="btn btn-success" (click)="saveProduct()">Enregistrer</button>
+    </div>
+</div>

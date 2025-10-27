@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Gestion des Produits</h2>
+
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2">Chargement...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <button class="btn btn-primary mb-3" (click)="initializeNewProduct()" *ngIf="!loading && products.length">
+    + Nouveau Produit
+  </button>
+
+  <app-product-form *ngIf="selectedProduct && !loading && products.length" [product]="selectedProduct"
+    (saved)="loadProducts(); selectedProduct = null" (cancel)="selectedProduct = null"></app-product-form>
+
+
+  <table class="table table-striped table-hover shadow-sm" *ngIf="!loading && products.length">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Stock</th>
+        <th>Catégorie</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price | currency:'EUR' }}</td>
+        <td>{{ product.stock }}</td>
+        <td>{{ product.categories[0].name }}</td>
+        <td>
+
+          <button class="btn btn-sm btn-secondary" (click)="onDetail(product)">Detail</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

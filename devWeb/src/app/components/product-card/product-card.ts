@@ -14,8 +14,6 @@ import { CartService } from '../../services/cart-service';
 
 export class ProductCard {
   @Input() product!: Product;
-  
-  
   @Output() addToCart = new EventEmitter<Product>();
   @Output() addToFavorites = new EventEmitter<Product>();
 
@@ -34,7 +32,7 @@ export class ProductCard {
 
   onAddToCart() {
     this.cartService.addToCart(this.product)
-    // this.addToCart.emit(this.product);
+    this.addToCart.emit(this.product);  
   }
 
 

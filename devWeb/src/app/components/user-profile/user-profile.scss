@@ -1,0 +1,110 @@
+.user-profile-container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background-color: white;
+}
+
+.user-info p {
+  margin: 6px 0;
+  font-size: 16px;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  font-weight: 500;
+}
+
+
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  background: #f4f6f8;
+  min-height: 100vh;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem 3rem;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-3px);
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #007bff;
+}
+
+.username {
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.user-email {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.profile-info {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.info-item .label {
+  font-weight: 600;
+  color: #555;
+}
+
+.info-item .value {
+  color: #777;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,27 @@
+<div class="orders-container container mt-4">
+    <h2 class="mb-3">Mes commandes</h2>
+
+    <div *ngFor="let order of orders" class="order-card card mb-3 shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center cursor-pointer"
+            [ngClass]="getStatusClass(order.status)" (click)="toggleOrder(order.id)">
+            <span><strong>Commande #{{ order.id }}</strong> — {{ order.status | uppercase }} - {{ order.created_at |
+                date:'short' }}</span>
+            <span>Total : {{ order.total | currency:'EUR' }}</span>
+        </div>
+
+        <div class="card-body" [@expandCollapse]="expandedOrderId === order.id ? 'expanded' : 'collapsed'">
+            <ul class="list-group list-group-flush">
+                <li *ngFor="let item of order.items" class="list-group-item d-flex justify-content-between">
+                    <span>{{ item.product.name }} (x{{ item.quantity }})</span>
+                    <span>{{ item.price | currency:'EUR' }}</span>
+                </li>
+            </ul>
+
+            <div class="mt-3 text-end">
+                <button *ngIf="order.status === 'pending'" class="btn btn-danger btn-sm" (click)="cancelOrder(order)">
+                    Annuler la commande
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
