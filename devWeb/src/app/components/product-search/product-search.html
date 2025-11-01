@@ -1,9 +1,9 @@
 <div class="search-container mb-3">
-  <input
-    type="text"
-    class="form-control"
-    placeholder="Rechercher un produit ou un catégorie..."
-    [formControl]="searchControl"
-    formControlName="searchControl"
-  />
+
+  <form [formGroup]="searchForm" >
+    <input type="text" class="form-control" placeholder="Rechercher un produit ou un catégorie..."
+      formControlName="searchControl"  />
+
+  </form>
+
 </div>

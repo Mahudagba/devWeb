@@ -10,6 +10,10 @@
     {{ error }}
   </div>
 
+    <button class="btn btn-primary mb-3" (click)="navigateToCreateOrder()" *ngIf="!loading && !error">
+    + Nouvelle commande
+  </button>
+
   <table *ngIf="!loading && !error" class="table table-striped table-hover">
     <thead class="table-primary">
       <tr>
@@ -27,25 +31,24 @@
         <td>{{ order.user?.name || 'Inconnu' }}</td>
         <td>{{ order.total | currency: 'EUR' }}</td>
         <td>
-          <span
-            class="badge"
-            [ngClass]="{
+          <span class="badge" [ngClass]="{
               'bg-warning text-dark': order.status === 'pending',
               'bg-success': order.status === 'paid',
               'bg-info text-dark': order.status === 'shipped',
               'bg-primary': order.status === 'completed',
               'bg-danger': order.status === 'cancelled'
-            }"
-          >
+            }">
             {{ formatStatus(order.status) }}
           </span>
         </td>
         <td>{{ order.created_at | date: 'short' }}</td>
         <td>
-          <button class="btn btn-sm btn-outline-primary"
-           (click)="viewOrder(order.id)"
-          >
-            Détails
+          <button class="btn btn-sm btn-outline-primary me-2" (click)="viewOrder(order.id)">
+            <i class="bi bi-eye"></i>Détails
+          </button>
+
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteOrder(order.id)">
+            <i class="bi bi-trash"></i> Supprimer
           </button>
         </td>
       </tr>

@@ -25,10 +25,10 @@ export class Dashboard {
           { title: 'Commandes', value: this.statsFromApi?.totalOrders, icon: 'bi bi-cart-check', color: 'success' },
           { title: 'Utilisateurs', value: this.statsFromApi?.totalUsers, icon: 'bi bi-people', color: 'info' },
           { title: 'Catégories', value: this.statsFromApi?.totalCategories, icon: 'bi bi-tags', color: 'warning' },
-          { title: 'Revenus', value: `€${this.statsFromApi?.totalRevenue}`, icon: 'bi bi-currency-dollar', color: 'success' },
+          { title: 'Revenus cumulés totaux', value: `€${this.statsFromApi?.totalRevenue}`, icon: 'bi bi-currency-dollar', color: 'success' },
           { title: 'Commandes en attente', value: this.statsFromApi?.pendingOrders, icon: 'bi bi-clock', color: 'warning' },
           { title: 'Commandes annulées', value: this.statsFromApi?.cancelledOrders, icon: 'bi bi-x-circle', color: 'danger' },
-          { title: 'Taux de réalisation', value: this.statsFromApi?.completionRate, icon: 'bi bi-check-circle', color: 'success' },
+          { title: 'Taux de réalisation', value: `${this.statsFromApi?.completionRate}%`, icon: 'bi bi-check-circle', color: 'success' },
         ];
         this.loading = false;
       }, error: (err) => {

@@ -59,6 +59,17 @@ export class OrdersDetail {
       },
     });
   }
+    deleteOrder(id:number){
+    if (confirm('Voulez-vous vraiment supprimer cette commande ?')) {
+      this.orderService.deleteOrder(id).subscribe({
+        next: () => {
+          alert('Commande supprimé');
+          this.goBack();
+        },
+        error: (err) => alert('Erreur : ' + err.message)
+      });
+    }
+  }
 
   goBack() {
     this.router.navigate(['/admin/orders']);

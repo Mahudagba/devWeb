@@ -15,7 +15,7 @@ import { CartService } from '../../services/cart-service';
 export class Header {
 
   userAvatarUrl: string | null = null;
-  userName: string | null = null;
+  // userName:  = null;
 
   private router: Router = inject(Router)
   constructor(
@@ -24,16 +24,14 @@ export class Header {
   ) { }
   ngOnInit() {
 
-    const user = this.authService.getCurrentUserSavedInfo();
-    if (user) {
-
-      // this.userAvatarUrl = user.avatarUrl;
-      this.userName = user.name;
-    }
+    
 
   }
 
 
+  get userName():string | null{
+    return this.authService.currentUserSubject.value?.user.name ;
+  }
   get userIsConnected(): boolean {
     return this.authService.currentUserSubject.value != null;
   }

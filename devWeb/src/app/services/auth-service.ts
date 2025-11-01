@@ -8,6 +8,23 @@ import { CartItem } from '../models/cart.model';
   providedIn: 'root'
 })
 export class AuthService {
+private http = inject(HttpClient);
+  private apiUrl = 'http://127.0.0.1:8000/api/';
+
+  currentUserSubject = new BehaviorSubject<{token: string, user: any} | null>(null);
+
+  deleteAccount(pwd:string) {
+   const data = {password:pwd};
+    console.log("delete.Account data send",data);
+    return this.http.delete(`${this.apiUrl}user/delete`,{body:data});
+  }
+  passwordForgot(data: any) {
+     return this.http.post(`${this.apiUrl}forgot-password`, data);
+  }
+
+  resetPassword(data:any){
+     return this.http.post(`${this.apiUrl}reset-password`, data);
+  }
   cancelOrder(id: number) {
     //http://127.0.0.1:8000/api/orders/{id}/cancel
     return this.http.post(this.apiUrl + `orders/${id}/cancel`, {});
@@ -24,10 +41,7 @@ export class AuthService {
     }
 
 
-  private http = inject(HttpClient);
-  private apiUrl = 'http://127.0.0.1:8000/api/';
-
-  currentUserSubject = new BehaviorSubject<{token: string, user: any} | null>(null);
+  
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     //au démarrage → recharger si un token existe déjà
@@ -62,7 +76,7 @@ export class AuthService {
   }
 
   getCurrentUserSavedInfo(): any {
-    return this.currentUserSubject.value?.user || null;
+    return this.currentUserSubject.value?.user ;
   }
 
   login(email: string, password: string) {
@@ -80,6 +94,7 @@ export class AuthService {
 
       sessionStorage.setItem('token', JSON.stringify(userInfo.token));
       sessionStorage.setItem('user', JSON.stringify(userInfo.user));
+      sessionStorage.setItem('user_role', JSON.stringify(userInfo.user));
       this.currentUserSubject.next(userInfo);
     }
   }
@@ -105,6 +120,7 @@ export class AuthService {
             sessionStorage.removeItem('token');
             sessionStorage.removeItem('user');
             sessionStorage.removeItem('cart_items');
+            sessionStorage.removeItem('user_role');
             this.currentUserSubject.next(null);
             console.log("user is now connected?", this.isUserConnected());
           }
@@ -121,6 +137,8 @@ export class AuthService {
         console.log("execution de la logique log out");
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('user');
+        sessionStorage.removeItem('cart_items');
+        sessionStorage.removeItem('user_role');
         this.currentUserSubject.next(null);
         console.log("user is now connected?", this.isUserConnected());
       }

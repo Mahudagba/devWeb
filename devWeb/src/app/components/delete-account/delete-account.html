@@ -1,0 +1,35 @@
+<div class="reset-password-container">
+  <div class="form-wrapper">
+    <h2 class="mb-4 text-center">Confirmer votre mot de passe pour supprimer le compte</h2>
+
+    <form [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+      <!-- Message d'erreur -->
+      <div class="text-danger mb-3" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Message de succès -->
+      <div class="text-success mb-3" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+
+
+ 
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input
+          type="password"
+          formControlName="password"
+          class="form-control"
+          placeholder="*************"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-dark w-100" [disabled]="resetForm.invalid || loading">
+        {{ loading ? 'Suppression...' : 'Supprimer mon compte' }}
+      </button>
+    </form>
+  </div>
+</div>

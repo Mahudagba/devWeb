@@ -8,15 +8,17 @@
   <div class="login-form">
     <div class="form-wrapper">
       <h2 class="mb-4">Connexion</h2>
-      <form [formGroup] = "loginForm" (ngSubmit) ="login()">
-        <div  class="error">
-            {{errorMesage()}}
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="error">
+          {{ errorMesage() }}
         </div>
+
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input
             type="text"
-            formControlName="email" class="form-control"
+            formControlName="email"
+            class="form-control"
           />
         </div>
 
@@ -24,8 +26,16 @@
           <label for="password" class="form-label">Mot de passe</label>
           <input
             type="password"
-            formControlName="password" class="form-control"
+            formControlName="password"
+            class="form-control"
           />
+
+          <!-- Lien mot de passe oublié -->
+          <div class="text-end mt-2">
+            <a class="text-decoration-none text-primary" [routerLink]="['/forgot-password']">
+              Mot de passe oublié ?
+            </a>
+          </div>
         </div>
 
         <button type="submit" class="btn btn-dark w-100">
@@ -43,3 +53,5 @@
     <h1>My<span>Shop</span></h1>
   </div>
 </div>
+
+

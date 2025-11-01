@@ -21,7 +21,7 @@ export class OrdersList {
   }
 
   viewOrder(id: number) {
-  this.router.navigate(['/admin/orders/', id]);
+  this.router.navigate(['/admin/orders', id]);
 }
 
   loadOrders() {
@@ -36,6 +36,21 @@ export class OrdersList {
         this.loading = false;
       },
     });
+  }
+
+  deleteOrder(id:number){
+    if (confirm('Voulez-vous vraiment supprimer cette commande ?')) {
+      this.orderService.deleteOrder(id).subscribe({
+        next: () => {
+          alert('Commande supprimé');
+          this.loadOrders();
+        },
+        error: (err) => alert('Erreur : ' + err.message)
+      });
+    }
+  }
+  navigateToCreateOrder(){
+    this.router.navigate(['/admin/orders-create']);
   }
 
   formatStatus(status: string): string {

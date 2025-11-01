@@ -35,7 +35,7 @@ class AdminStatsController extends Controller
         $cancelledOrders = Order::where('status', 'cancelled')->count();
 
         // Pourcentage de commandes livrées
-        $shippedOrders = Order::where('status', 'shipped')->count();
+        $shippedOrders = Order::whereIn('status', ['shipped', 'completed'])->count();
         $completionRate = $totalOrders > 0
             ? round(($shippedOrders / $totalOrders) * 100, 2)
             : 0;
@@ -50,5 +50,40 @@ class AdminStatsController extends Controller
             'totalUsers'      => $totalUsers,
             'totalCategories' => $totalCategories,
         ]);
+    }
+
+    /**
+     * Créer un administrateur
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+        ]);
+
+        $admin = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'role'     => 'admin', 
+        ]);
+
+        return response()->json([
+            'message' => 'Administrateur créé avec succès',
+            'data'    => $admin
+        ], 201);
+    }
+
+    /**
+     * Supprimer un administrateur
+     */
+    public function destroy($id)
+    {
+        $admin = User::where('role', 'admin')->findOrFail($id);
+        $admin->delete();
+
+        return response()->json(['message' => 'Administrateur supprimé avec succès']);
     }
 }

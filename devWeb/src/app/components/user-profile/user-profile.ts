@@ -43,10 +43,9 @@ export class UserProfile implements OnInit {
     this.router.navigate(['/orders']);
   }
 
-  logout(): void {
-    this.cartService.clearCart();
-    this.authService.logout();
-    this.router.navigate(['/']);
+  deleteAccount(): void {
+    
+    this.router.navigate(['/delete-account']);
   }
 
 

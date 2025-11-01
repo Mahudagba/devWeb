@@ -14,6 +14,11 @@ import { ProductDetail } from './admin/products/product-detail/product-detail';
 import { OrdersList } from './admin/orders/orders-list/orders-list';
 import { OrdersDetail } from './admin/orders/orders-detail/orders-detail';
 import { UsersList } from './admin/users/users-list/users-list';
+import { PasswordForgot } from './components/password-forgot/password-forgot';
+import { ResetPassword } from './components/reset-password/reset-password';
+import { DeleteAccount } from './components/delete-account/delete-account';
+import { AdminGuard } from './guards/admin.guards';
+import { CreateOrders } from './admin/orders/create-orders/create-orders';
 
 export const routes: Routes = [
   { path: '', component: Home },//
@@ -23,9 +28,13 @@ export const routes: Routes = [
   { path: 'profile', component: UserProfile },
   { path: 'edit-profile', component: EditeProfile },
   { path: 'orders', component: Orders },
+  { path: 'forgot-password', component: PasswordForgot },
+  { path: 'reset-password', component: ResetPassword },
+  { path: 'delete-account', component: DeleteAccount },
   {
     path: 'admin',
     component: AdminLayaout,
+    canActivate: [AdminGuard],
     children: [
       { path: 'dashboard', component: Dashboard },
       { path: 'categories', component: Categories },
@@ -35,6 +44,7 @@ export const routes: Routes = [
       { path: 'orders/:id', component: OrdersDetail },
       { path: 'users', component: UsersList },
       { path: 'profile', component: UserProfile },
+      { path: 'orders-create', component: CreateOrders },
       { path: 'edit-profile', component: EditeProfile },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
